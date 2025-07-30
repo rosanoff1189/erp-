@@ -1,0 +1,11 @@
+nombre,status,telefono,correo,direccion,rfc,saldo,metodo_pago_habitual,condiciones_credito,contacto_principal,categoria,codigo_postal,limite_credito
+"Aluminios Industriales S.A.","Activo","555-1001","ventas@aluminiosindustriales.com","Zona Industrial Norte, Lote 15","AIN123456789",125430.50,"Transferencia","30 días","Ing. María López","Materia Prima","64000",300000.00
+"Vidrios y Cristales del Bajío","Activo","555-1002","compras@vidriosbajio.com","Carretera Nacional Km 45","VCB890123456",89750.00,"Cheque","15 días","Lic. Carlos Ramírez","Vidrio","37000",200000.00
+"Herrajes y Accesorios Premium","Activo","555-1003","info@herrajespremium.com","Boulevard de la Industria 234","HAP850429AB1",45200.00,"Efectivo","Contado","Sr. Jorge Mendoza","Herrajes","45000",100000.00
+"Distribuidora de Aluminio SA","Activo","555-2001","contacto@distaluminio.com","Av. Industrial 567","DAS456789123",75000.00,"Transferencia","45 días","Ing. Ana García","Materia Prima","66000",250000.00
+"Cristales Especiales del Norte","Activo","555-2002","ventas@cristalesnorte.com","Blvd. Norte 890","CEN789123456",32000.00,"Cheque","30 días","Lic. Roberto Silva","Vidrio","64100",150000.00
+"Herrajes Industriales SA","Activo","555-2003","info@herrajes.com","Zona Industrial Sur 123","HIS321654987",28500.00,"Transferencia","20 días","Ing. Patricia Morales","Herrajes","20000",120000.00
+"Aluminios del Pacífico","Activo","555-2004","ventas@pacifico.com","Puerto Industrial 456","ADP654987321",95000.00,"Cheque","60 días","Lic. Fernando Castro","Materia Prima","22000",350000.00
+"Vidrios Templados SA","Activo","555-2005","contacto@templados.com","Carretera Industrial Km 12","VTS987321654",67500.00,"Transferencia","25 días","Ing. Claudia Herrera","Vidrio","76000",180000.00
+"Accesorios y Herrajes del Centro","Activo","555-2006","ventas@centro.com","Centro Industrial 789","AHC147258369",41000.00,"Efectivo","Contado","Sr. Miguel Ángel Ruiz","Herrajes","50000",90000.00
+"Distribuidora Nacional de Aluminio","Activo","555-2007","info@nacional.com","Av. Nacional 1234","DNA369258147",156000.00,"Transferencia","90 días","Ing. Sofía Mendoza","Materia Prima","01000",500000.00

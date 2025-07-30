@@ -1,0 +1,6 @@
+nombre,status,telefono,correo,direccion,rfc,saldo,metodo_pago_habitual,condiciones_credito,contacto_principal,categoria
+"Aluminios Industriales S.A.","Activo","555-1001","ventas@aluminiosindustriales.com","Zona Industrial Norte, Lote 15","AIN123456789",125430.50,"Transferencia","30 días","Ing. María López","Materia Prima"
+"Vidrios y Cristales del Bajío","Activo","555-1002","compras@vidriosbajio.com","Carretera Nacional Km 45","VCB890123456",89750.00,"Cheque","15 días","Lic. Carlos Ramírez","Vidrio"
+"Herrajes y Accesorios Premium","Activo","555-1003","info@herrajespremium.com","Boulevard de la Industria 234","HAP850429AB1",45200.00,"Efectivo","Contado","Sr. Jorge Mendoza","Herrajes"
+"Distribuidora de Aluminio SA","Activo","555-2001","contacto@distaluminio.com","Av. Industrial 567","DAS456789123",75000.00,"Transferencia","45 días","Ing. Ana García","Materia Prima"
+"Cristales Especiales del Norte","Activo","555-2002","ventas@cristalesnorte.com","Blvd. Norte 890","CEN789123456",32000.00,"Cheque","30 días","Lic. Roberto Silva","Vidrio"

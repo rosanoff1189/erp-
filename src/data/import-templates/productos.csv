@@ -1,0 +1,9 @@
+codigo,descripcion,status,linea,ubicacion,unidad_sat,clave_sat,precio_base,costo,stock_min,stock_max
+"VT-6MM-001","Vidrio Templado 6mm Transparente","Activo","Vidrios","A-01-15","M2","43211701",350.00,210.00,50,500
+"AL-NAT-001","Perfil Aluminio Natural 2x1","Activo","Perfiles","B-02-08","PZA","30111506",145.50,87.30,100,1000
+"VL-8MM-001","Vidrio Laminado 8mm Seguridad","Activo","Vidrios","A-03-22","M2","43211702",520.00,312.00,30,300
+"HE-PREM-001","Herraje Premium Ventana","Activo","Herrajes","C-01-10","PZA","30111507",89.50,45.20,200,2000
+"VT-10MM-001","Vidrio Templado 10mm","Activo","Vidrios","A-01-16","M2","43211701",450.00,280.00,25,250
+"AL-ANO-001","Perfil Aluminio Anodizado","Activo","Perfiles","B-02-09","PZA","30111506",185.50,115.30,80,800
+"VL-6MM-001","Vidrio Laminado 6mm","Activo","Vidrios","A-03-23","M2","43211702",420.00,252.00,40,400
+"HE-EST-001","Herraje Estándar Puerta","Activo","Herrajes","C-01-11","PZA","30111507",65.50,32.20,300,3000

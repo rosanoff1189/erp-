@@ -1,0 +1,6 @@
+nombre,status,telefono,correo,direccion,rfc,saldo,precio_especial,descuento,metodo_pago_preferido,comentarios
+"Constructora ABC S.A. de C.V.","Activo","555-0123","contacto@constructoraabc.com","Av. Reforma 123, Col. Centro","CABC123456789",85430.50,TRUE,15.0,"Transferencia","Cliente preferencial, crédito 30 días"
+"Vidrios del Norte S.A.","Activo","555-0456","compras@vidriosdelnorte.com","Blvd. Industrial 456, Zona Norte","VNO890123456",23750.00,FALSE,5.0,"Cheque","Distribuidor regional"
+"Juan Pérez Construcciones","Activo","555-0789","juan@construcciones.com","Calle 5 de Mayo 789, Col. Americana","PEXJ850429AB1",0.00,FALSE,0.0,"Efectivo","Cliente de contado"
+"Desarrollos Inmobiliarios SA","Activo","555-1234","ventas@desarrollos.com","Av. Universidad 456, Col. Del Valle","DIS890123456",125000.00,TRUE,20.0,"Transferencia","Cliente corporativo VIP"
+"Cristales y Aluminios del Sur","Activo","555-5678","info@cristalesdelsur.com","Carretera Sur Km 15","CAS123789456",45000.00,FALSE,8.0,"Cheque","Distribuidor autorizado"

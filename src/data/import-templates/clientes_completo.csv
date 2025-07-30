@@ -1,0 +1,9 @@
+nombre,status,telefono,correo,direccion,rfc,saldo,precio_especial,descuento,metodo_pago_preferido,comentarios,codigo_postal,limite_credito,uso_cfdi,regimen_fiscal
+"Constructora ABC S.A. de C.V.","Activo","555-0123","contacto@constructoraabc.com","Av. Reforma 123, Col. Centro","CABC123456789",85430.50,TRUE,15.0,"Transferencia","Cliente preferencial, crédito 30 días","01000",200000.00,"G01","601"
+"Vidrios del Norte S.A.","Activo","555-0456","compras@vidriosdelnorte.com","Blvd. Industrial 456, Zona Norte","VNO890123456",23750.00,FALSE,5.0,"Cheque","Distribuidor regional","64000",100000.00,"G03","601"
+"Juan Pérez Construcciones","Activo","555-0789","juan@construcciones.com","Calle 5 de Mayo 789, Col. Americana","PEXJ850429AB1",0.00,FALSE,0.0,"Efectivo","Cliente de contado","44100",50000.00,"G03","612"
+"Desarrollos Inmobiliarios SA","Activo","555-1234","ventas@desarrollos.com","Av. Universidad 456, Col. Del Valle","DIS890123456",125000.00,TRUE,20.0,"Transferencia","Cliente corporativo VIP","03100",500000.00,"G01","601"
+"Cristales y Aluminios del Sur","Activo","555-5678","info@cristalesdelsur.com","Carretera Sur Km 15","CAS123789456",45000.00,FALSE,8.0,"Cheque","Distribuidor autorizado","20000",150000.00,"G03","601"
+"Constructora del Valle SA","Activo","555-9012","contacto@valle.com","Blvd. Valle 890","CDV456123789",67500.00,TRUE,12.0,"Transferencia","Cliente frecuente","66000",300000.00,"G01","601"
+"Vidriería Central","Activo","555-3456","central@vidrieria.com","Centro Histórico 234","VCE789456123",12000.00,FALSE,3.0,"Efectivo","Compras menores","06000",75000.00,"G03","612"
+"Aluminios Modernos SA","Activo","555-7890","ventas@modernos.com","Zona Industrial 567","AMS123456789",89000.00,TRUE,18.0,"Transferencia","Distribuidor mayorista","45000",400000.00,"G01","601"
