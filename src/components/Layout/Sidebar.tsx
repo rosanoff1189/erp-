@@ -8,6 +8,7 @@ import {
   FileText, 
   Settings,
   Wrench,
+  Scissors,
   ChevronLeft,
   ChevronRight,
   Building2
@@ -35,6 +36,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     { id: 'compras', label: 'Compras', icon: FileText },
     { id: 'configuracion', label: 'Configuración', icon: Settings },
     { id: 'utilidades', label: 'Utilerías', icon: Wrench },
+    { id: 'corte-optimizado', label: 'Corte Optimizado', icon: Scissors },
   ];
 
   return (

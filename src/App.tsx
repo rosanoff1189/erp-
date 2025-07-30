@@ -9,6 +9,7 @@ import Ventas from './components/Ventas/Ventas';
 import Compras from './components/Compras/Compras';
 import Configuracion from './components/Configuracion/Configuracion';
 import Utilidades from './components/Utilidades/Utilidades';
+import CorteOptimizado from './components/CorteOptimizado/CorteOptimizado';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './components/Auth/Login';
 
@@ -39,6 +40,8 @@ function AppContent() {
         return <Configuracion />;
       case 'utilidades':
         return <Utilidades />;
+      case 'corte-optimizado':
+        return <CorteOptimizado />;
       default:
         return <Dashboard />;
     }
