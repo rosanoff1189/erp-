@@ -35,8 +35,8 @@ const Sidebar: React.FC<SidebarProps> = ({
     { id: 'ventas', label: 'Ventas', icon: ShoppingCart },
     { id: 'compras', label: 'Compras', icon: FileText },
     { id: 'corte-optimizado', label: 'Corte Optimizado', icon: Scissors },
+    { id: 'corte-optimizado', label: 'Corte Optimizado', icon: Scissors },
     { id: 'configuracion', label: 'Configuración', icon: Settings },
-    { id: 'utilidades', label: 'Utilerías', icon: Wrench },
   ];
 
   return (

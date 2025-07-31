@@ -106,8 +106,20 @@ const Clientes: React.FC = () => {
   };
 
   const handleExportExcel = () => {
-    alert('Exportando clientes a Excel...');
-    // Aquí iría la lógica real de exportación
+    // Simular exportación con filtros aplicados
+    const datosExportar = {
+      filtros_aplicados: {
+        busqueda: searchTerm,
+        status: filterStatus,
+        sucursal: filterSucursal
+      },
+      total_registros: filteredClientes.length,
+      fecha_exportacion: new Date().toISOString(),
+      usuario: 'Usuario Actual'
+    };
+    
+    console.log('Exportando a Excel:', datosExportar);
+    alert(`Exportando ${filteredClientes.length} clientes a Excel con filtros aplicados`);
   };
 
   return (
