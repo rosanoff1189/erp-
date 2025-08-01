@@ -932,4 +932,6 @@ const OptimizadorCorte: React.FC = () => {
                 const tieneErrores = errores.length > 0;
                 
                 return (
-                  <tr key={corte.id} className={`border-b border-gray-100 transition
+                  <tr key={corte.id} className={`border-b border-gray-100 transition-colors ${
+                    tieneErrores ? 'bg-red-50' : 'hover:bg-gray-50'
+                  }`}>
