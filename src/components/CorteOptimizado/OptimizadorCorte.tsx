@@ -935,3 +935,515 @@ const OptimizadorCorte: React.FC = () => {
                   <tr key={corte.id} className={`border-b border-gray-100 transition-colors ${
                     tieneErrores ? 'bg-red-50' : 'hover:bg-gray-50'
                   }`}>
+                    <td className="py-3 px-4">
+                      <input
+                        type="color"
+                        value={corte.color}
+                        onChange={(e) => actualizarCorte(corte.id, 'color', e.target.value)}
+                        className="w-8 h-8 rounded border border-gray-300 cursor-pointer"
+                      />
+                    </td>
+                    <td className="py-3 px-4">
+                      <input
+                        type="text"
+                        value={corte.descripcion}
+                        onChange={(e) => actualizarCorte(corte.id, 'descripcion', e.target.value)}
+                        className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Descripción del corte"
+                      />
+                    </td>
+                    <td className="py-3 px-4">
+                      <input
+                        type="number"
+                        value={corte.ancho}
+                        onChange={(e) => actualizarCorte(corte.id, 'ancho', parseInt(e.target.value) || 0)}
+                        className="w-20 px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </td>
+                    <td className="py-3 px-4">
+                      <input
+                        type="number"
+                        value={corte.alto}
+                        onChange={(e) => actualizarCorte(corte.id, 'alto', parseInt(e.target.value) || 0)}
+                        className="w-20 px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </td>
+                    <td className="py-3 px-4">
+                      <input
+                        type="number"
+                        value={corte.cantidad}
+                        onChange={(e) => actualizarCorte(corte.id, 'cantidad', parseInt(e.target.value) || 1)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        min="1"
+                      />
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className="text-sm text-gray-600">
+                        {((corte.ancho * corte.alto * corte.cantidad) / 1000000).toFixed(4)} m²
+                      </span>
+                    </td>
+                    <td className="py-3 px-4">
+                      {tieneErrores ? (
+                        <div className="flex items-center space-x-1 text-red-600">
+                          <AlertTriangle className="w-4 h-4" />
+                          <span className="text-xs">Error</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center space-x-1 text-green-600">
+                          <Target className="w-4 h-4" />
+                          <span className="text-xs">OK</span>
+                        </div>
+                      )}
+                    </td>
+                    <td className="py-3 px-4">
+                      <div className="flex space-x-1">
+                        <button
+                          onClick={() => duplicarCorte(corte.id)}
+                          className="p-1 text-blue-600 hover:text-blue-800 transition-colors"
+                          title="Duplicar corte"
+                        >
+                          <Copy className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => eliminarCorte(corte.id)}
+                          className="p-1 text-red-600 hover:text-red-800 transition-colors"
+                          title="Eliminar corte"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Resumen de cortes */}
+        <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+            <div>
+              <span className="text-gray-600">Total cortes:</span>
+              <span className="font-medium ml-2">{cortes.reduce((sum, c) => sum + c.cantidad, 0)}</span>
+            </div>
+            <div>
+              <span className="text-gray-600">Área total requerida:</span>
+              <span className="font-medium ml-2">
+                {(cortes.reduce((sum, c) => sum + (c.ancho * c.alto * c.cantidad), 0) / 1000000).toFixed(4)} m²
+              </span>
+            </div>
+            <div>
+              <span className="text-gray-600">Costo estimado:</span>
+              <span className="font-medium ml-2">
+                ${((cortes.reduce((sum, c) => sum + (c.ancho * c.alto * c.cantidad), 0) / 1000000) * material.costo_m2).toFixed(2)}
+              </span>
+            </div>
+            <div>
+              <span className="text-gray-600">Cortes con errores:</span>
+              <span className={`font-medium ml-2 ${cortesConErrores.length > 0 ? 'text-red-600' : 'text-green-600'}`}>
+                {cortesConErrores.length}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Resultados de Optimización */}
+      {optimizacionResult && (
+        <div className="space-y-6">
+          {/* Panel de Control de Simulación */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <h3 className="text-lg font-semibold text-gray-900">Control de Simulación</h3>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={iniciarSimulacion}
+                    disabled={simulacionActiva}
+                    className="flex items-center space-x-2 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <Play className="w-4 h-4" />
+                    <span>Iniciar</span>
+                  </button>
+                  <button
+                    onClick={pausarSimulacion}
+                    disabled={!simulacionActiva}
+                    className="flex items-center space-x-2 px-3 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <Pause className="w-4 h-4" />
+                    <span>Pausar</span>
+                  </button>
+                  <button
+                    onClick={reiniciarSimulacion}
+                    className="flex items-center space-x-2 px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                    <span>Reiniciar</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                {/* Selector de alternativas */}
+                <div className="flex items-center space-x-2">
+                  <label className="text-sm font-medium text-gray-700">Alternativa:</label>
+                  <select
+                    value={alternativaSeleccionada}
+                    onChange={(e) => seleccionarAlternativa(e.target.value)}
+                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="principal">Principal (Óptima)</option>
+                    {optimizacionResult.alternativas.map(alt => (
+                      <option key={alt.id} value={alt.id}>
+                        {alt.nombre} ({alt.aprovechamiento.toFixed(1)}%)
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Botones de exportación */}
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => exportarPlano('imagen')}
+                    className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    <Image className="w-4 h-4" />
+                    <span>PNG</span>
+                  </button>
+                  <button
+                    onClick={() => exportarPlano('excel')}
+                    className="flex items-center space-x-2 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                  >
+                    <FileText className="w-4 h-4" />
+                    <span>Excel</span>
+                  </button>
+                  <button
+                    onClick={() => exportarPlano('pdf')}
+                    className="flex items-center space-x-2 px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                  >
+                    <FileText className="w-4 h-4" />
+                    <span>PDF</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Barra de progreso de simulación */}
+            {simulacionActiva && (
+              <div className="mt-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-600">Progreso de simulación</span>
+                  <span className="text-sm text-gray-600">
+                    {pasoSimulacion + 1} / {optimizacionResult.patron_cortes.length}
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    style={{ 
+                      width: `${((pasoSimulacion + 1) / optimizacionResult.patron_cortes.length) * 100}%` 
+                    }}
+                  ></div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Métricas de Optimización */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Aprovechamiento</p>
+                  <p className="text-2xl font-bold text-green-600">
+                    {optimizacionResult.aprovechamiento.toFixed(1)}%
+                  </p>
+                </div>
+                <div className="bg-green-100 w-12 h-12 rounded-xl flex items-center justify-center">
+                  <Target className="w-6 h-6 text-green-600" />
+                </div>
+              </div>
+              <div className="mt-4">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-green-600 h-2 rounded-full"
+                    style={{ width: `${optimizacionResult.aprovechamiento}%` }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Desperdicio</p>
+                  <p className="text-2xl font-bold text-red-600">
+                    {optimizacionResult.desperdicio.toFixed(1)}%
+                  </p>
+                </div>
+                <div className="bg-red-100 w-12 h-12 rounded-xl flex items-center justify-center">
+                  <AlertTriangle className="w-6 h-6 text-red-600" />
+                </div>
+              </div>
+              <div className="mt-4">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-red-600 h-2 rounded-full"
+                    style={{ width: `${optimizacionResult.desperdicio}%` }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Costo Total</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    ${optimizacionResult.costo_total.toFixed(2)}
+                  </p>
+                </div>
+                <div className="bg-blue-100 w-12 h-12 rounded-xl flex items-center justify-center">
+                  <Calculator className="w-6 h-6 text-blue-600" />
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 mt-2">
+                Ahorro: ${optimizacionResult.ahorro_estimado.toFixed(2)}
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Tiempo Estimado</p>
+                  <p className="text-2xl font-bold text-purple-600">
+                    {optimizacionResult.tiempo_estimado} min
+                  </p>
+                </div>
+                <div className="bg-purple-100 w-12 h-12 rounded-xl flex items-center justify-center">
+                  <Clock className="w-6 h-6 text-purple-600" />
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 mt-2">
+                {optimizacionResult.cortes_ubicados} cortes ubicados
+              </p>
+            </div>
+          </div>
+
+          {/* Visualización del Patrón de Corte */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">Patrón de Corte Optimizado</h3>
+              <div className="flex items-center space-x-2">
+                <span className="text-sm text-gray-600">
+                  Lámina {material.ancho}×{material.alto}mm
+                </span>
+                {simulacionActiva && (
+                  <div className="flex items-center space-x-2 px-3 py-1 bg-blue-100 text-blue-800 rounded-full">
+                    <Zap className="w-4 h-4" />
+                    <span className="text-sm">Simulando...</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className={`${modoVisualizacion === 'fullscreen' ? 'fixed inset-0 z-50 bg-white p-8' : ''}`}>
+              {modoVisualizacion === 'fullscreen' && (
+                <button
+                  onClick={() => setModoVisualizacion('normal')}
+                  className="absolute top-4 right-4 p-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                >
+                  <Maximize2 className="w-4 h-4" />
+                </button>
+              )}
+              
+              <div className="flex justify-center">
+                <canvas
+                  ref={canvasRef}
+                  className="border border-gray-300 rounded-lg shadow-lg max-w-full"
+                  style={{ maxHeight: modoVisualizacion === 'fullscreen' ? '80vh' : '500px' }}
+                />
+              </div>
+            </div>
+
+            {/* Leyenda de colores */}
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+              <h4 className="font-medium text-gray-900 mb-3">Leyenda de Cortes</h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                {cortes.map(corte => (
+                  <div key={corte.id} className="flex items-center space-x-2">
+                    <div 
+                      className="w-4 h-4 rounded border border-gray-300"
+                      style={{ backgroundColor: corte.color }}
+                    ></div>
+                    <span className="text-sm text-gray-700">
+                      {corte.descripcion} ({corte.ancho}×{corte.alto}mm × {corte.cantidad})
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Alternativas de Optimización */}
+          {optimizacionResult.alternativas.length > 0 && (
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Alternativas de Optimización</h3>
+                <button
+                  onClick={() => setShowAlternativas(!showAlternativas)}
+                  className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>{showAlternativas ? 'Ocultar' : 'Mostrar'} Alternativas</span>
+                </button>
+              </div>
+
+              {showAlternativas && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 animate-slide-up">
+                  {optimizacionResult.alternativas.map(alternativa => (
+                    <div 
+                      key={alternativa.id}
+                      className={`p-4 border rounded-lg cursor-pointer transition-all hover:shadow-md ${
+                        alternativaSeleccionada === alternativa.id 
+                          ? 'border-blue-500 bg-blue-50' 
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                      onClick={() => seleccionarAlternativa(alternativa.id)}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-medium text-gray-900">{alternativa.nombre}</h4>
+                        <span className="text-sm font-medium text-green-600">
+                          {alternativa.aprovechamiento.toFixed(1)}%
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">{alternativa.descripcion}</p>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-xs">
+                          <span className="text-gray-500">Estrategia:</span>
+                          <span className="text-gray-700">{alternativa.estrategia}</span>
+                        </div>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-gray-500">Láminas:</span>
+                          <span className="text-gray-700">{alternativa.laminas}</span>
+                        </div>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-gray-500">Cortes ubicados:</span>
+                          <span className="text-gray-700">{alternativa.patron_cortes.length}</span>
+                        </div>
+                      </div>
+                      <div className="mt-3">
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div 
+                            className="bg-green-600 h-2 rounded-full"
+                            style={{ width: `${alternativa.aprovechamiento}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Detalles de Cortes */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Secuencia de Cortes</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-gray-200">
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Orden</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Descripción</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Dimensiones</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Posición</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Rotado</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Área</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(alternativaSeleccionada === 'principal' 
+                    ? optimizacionResult.patron_cortes 
+                    : optimizacionResult.alternativas.find(a => a.id === alternativaSeleccionada)?.patron_cortes || []
+                  ).map((corte, index) => (
+                    <tr 
+                      key={`${corte.id}-${index}`} 
+                      className={`border-b border-gray-100 transition-colors ${
+                        simulacionActiva && index <= pasoSimulacion 
+                          ? 'bg-green-50' 
+                          : simulacionActiva && index > pasoSimulacion 
+                            ? 'bg-gray-50' 
+                            : 'hover:bg-gray-50'
+                      }`}
+                    >
+                      <td className="py-3 px-4">
+                        <div className="flex items-center space-x-2">
+                          <div 
+                            className="w-4 h-4 rounded border border-gray-300"
+                            style={{ backgroundColor: corte.color }}
+                          ></div>
+                          <span className="font-medium">{corte.orden || index + 1}</span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <span className="text-sm">{corte.descripcion}</span>
+                      </td>
+                      <td className="py-3 px-4">
+                        <span className="text-sm font-mono">
+                          {corte.ancho} × {corte.alto} mm
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        <span className="text-sm font-mono">
+                          ({corte.posicionX}, {corte.posicionY})
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        {corte.rotado ? (
+                          <div className="flex items-center space-x-1 text-orange-600">
+                            <RotateCw className="w-4 h-4" />
+                            <span className="text-xs">Sí</span>
+                          </div>
+                        ) : (
+                          <span className="text-xs text-gray-500">No</span>
+                        )}
+                      </td>
+                      <td className="py-3 px-4">
+                        <span className="text-sm">
+                          {((corte.ancho * corte.alto) / 1000000).toFixed(4)} m²
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        {simulacionActiva && index <= pasoSimulacion ? (
+                          <div className="flex items-center space-x-1 text-green-600">
+                            <Target className="w-4 h-4" />
+                            <span className="text-xs">Cortado</span>
+                          </div>
+                        ) : simulacionActiva && index > pasoSimulacion ? (
+                          <div className="flex items-center space-x-1 text-gray-400">
+                            <Clock className="w-4 h-4" />
+                            <span className="text-xs">Pendiente</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center space-x-1 text-blue-600">
+                            <Target className="w-4 h-4" />
+                            <span className="text-xs">Listo</span>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default OptimizadorCorte;
